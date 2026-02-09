@@ -1,14 +1,14 @@
-# Use lightweight Nginx image
-FROM nginx:alpine
+FROM busybox:latest
 
-# Remove default nginx static files
-RUN rm -rf /usr/share/nginx/html/*
+# Create web directory
+WORKDIR /www
 
-# Copy your website files
-COPY index.html /usr/share/nginx/html/index.html
+# Copy site
+COPY index.html .
 
-# Expose port 8001
+# Expose port
 EXPOSE 80
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Run BusyBox HTTP server
+CMD ["httpd", "-f", "-p", "80"]
+
